@@ -1,16 +1,21 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { retrieveSession } from "../auth/session";
 import { RootState } from "../redux/store";
 
-type initialStateType = { username: string | null };
-const initialState: initialStateType = {
-  username: null,
+interface SessionState {
+  username: string | null;
+}
+
+const username = retrieveSession();
+const initialState: SessionState = {
+  username,
 };
 
 export const sessionSlice = createSlice({
   name: "session",
   initialState,
   reducers: {
-    signup: (state, action: PayloadAction<initialStateType>) => {
+    signup: (state, action: PayloadAction<SessionState>) => {
       state.username = action.payload.username;
     },
     signout: (state) => {

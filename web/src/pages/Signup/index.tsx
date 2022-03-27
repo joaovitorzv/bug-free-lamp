@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { signup } from "../../actions/sessionSlice";
+import { keepSession } from "../../auth/session";
 
 function Signup() {
   const [username, setUsername] = useState("");
@@ -8,24 +9,26 @@ function Signup() {
 
   const dispatch = useDispatch();
 
-  function handleSignup() {
+  function handleSignup(e: React.FormEvent<HTMLFormElement>) {
+    e.preventDefault();
     if (!username) {
-      setFormError(true);
+      return setFormError(true);
     }
 
+    keepSession(username);
     dispatch(signup({ username }));
   }
   return (
     <div>
       <h3>Welcome again, signup below!</h3>
-      <form>
+      <form onSubmit={handleSignup}>
         <input
           placeholder="username"
           onChange={(e) => setUsername(e.target.value)}
           type="text"
         />
         {formError && <p>please type your username</p>}
-        <button onClick={handleSignup}>signup</button>
+        <button type="submit">signup</button>
       </form>
     </div>
   );
