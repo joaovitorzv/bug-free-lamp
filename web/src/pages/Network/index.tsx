@@ -93,7 +93,7 @@ const Post = ({ id, title, content }: PostProps) => {
 };
 
 function Network() {
-  const { posts } = useSelector(selectPosts);
+  const posts = useSelector(selectPosts);
 
   return (
     <div>
