@@ -11,7 +11,7 @@ export const postsSlice = createSlice({
   initialState,
   reducers: {
     postAdded: {
-      reducer(state, action: PayloadAction<typeof initialState[0]>) {
+      reducer(state, action: PayloadAction<typeof initialState[number]>) {
         state.push(action.payload);
       },
       prepare(title: string, content: string) {

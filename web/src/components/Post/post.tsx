@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { postDeleted, postEdited } from "../../actions/postsSlice";
+import { useDeletePostMutation } from "../../services/posts";
 
 interface PostProps {
   id: string;
@@ -24,11 +25,13 @@ function Post({ id, title, content }: PostProps) {
     }
   }
 
+  const [deletePost] = useDeletePostMutation();
+
   return (
     <div key={id}>
       <h3>{title}</h3>
       <p>{content}</p>
-      <button onClick={() => dispatch(postDeleted(id))}>delete post</button>
+      <button onClick={() => deletePost(id)}>delete post</button>
       <div style={{ display: edit ? "block" : "none" }}>
         <input
           value={editTitle}
