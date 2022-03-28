@@ -1,4 +1,4 @@
-import "./App.css";
+import "./globalStyles.css";
 import AppRoutes from "./routes";
 import store from "./redux/store";
 import { Provider } from "react-redux";

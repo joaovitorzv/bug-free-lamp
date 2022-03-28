@@ -1,15 +1,18 @@
 import { useState } from "react";
 import { useDispatch } from "react-redux";
+import { formatDistanceToNow } from "date-fns";
+import {
+  AiOutlineDelete as DeleteIcon,
+  AiOutlineEdit as EditIcon,
+} from "react-icons/ai";
+
 import { postDeleted, postEdited } from "../../actions/postsSlice";
 import { useDeletePostMutation } from "../../services/posts";
+import { PostType } from "../../services/types";
 
-interface PostProps {
-  id: string;
-  title: string;
-  content: string;
-}
+import "./postStyles.css";
 
-function Post({ id, title, content }: PostProps) {
+function Post({ id, title, content, username, created_datetime }: PostType) {
   const [edit, setEdit] = useState(false);
   const [editTitle, setEditTile] = useState(title);
   const [editContent, setEditContent] = useState(content);
@@ -28,10 +31,33 @@ function Post({ id, title, content }: PostProps) {
   const [deletePost] = useDeletePostMutation();
 
   return (
-    <div key={id}>
-      <h3>{title}</h3>
-      <p>{content}</p>
-      <button onClick={() => deletePost(id)}>delete post</button>
+    <section key={id} className="postContainer">
+      <header>
+        <h2>{title}</h2>
+
+        <div className="postActions">
+          <button
+            className="editButton"
+            onClick={() => handleEditPost(String(id))}
+          >
+            {edit ? "save" : <EditIcon size={18} />}
+          </button>
+          <button
+            className="deleteButton"
+            onClick={() => deletePost(String(id))}
+          >
+            <DeleteIcon size={18} />
+          </button>
+        </div>
+      </header>
+      <div className="postBody">
+        <div className="postInfo">
+          <h4>@{username}</h4>
+          <span>{formatDistanceToNow(new Date(created_datetime))}</span>
+        </div>
+        <p>{content}</p>
+      </div>
+
       <div style={{ display: edit ? "block" : "none" }}>
         <input
           value={editTitle}
@@ -42,10 +68,7 @@ function Post({ id, title, content }: PostProps) {
           onChange={(e) => setEditContent(e.target.value)}
         />
       </div>
-      <button onClick={() => handleEditPost(id)}>
-        {edit ? "save" : "edit"}
-      </button>
-    </div>
+    </section>
   );
 }
 

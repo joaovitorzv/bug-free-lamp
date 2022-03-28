@@ -14,8 +14,6 @@ const store = configureStore({
     getDefaultMiddleware().concat(postsApi.middleware),
 });
 
-setupListeners(store.dispatch);
-
 export type RootState = ReturnType<typeof store.getState>;
 
 export default store;

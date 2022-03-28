@@ -1,0 +1,32 @@
+.createPostContainer {
+  padding: var(--spacer-m) var(--spacer-xl);
+  margin-top: var(--spacer-xl);
+  margin-bottom: var(--spacer-xl);
+  border: 1px solid black;
+}
+
+@media only screen and (max-width: 600px) {
+  .createPostContainer {
+    border-left: none;
+    border-right: none;
+  }
+}
+
+.createPostContainer h2 {
+  margin-bottom: var(--spacer-xl);
+}
+
+.postForm input {
+  margin-bottom: var(--spacer-m);
+}
+
+.postForm textarea {
+  margin-bottom: var(--spacer-m);
+  resize: vertical;
+}
+
+.createPostActions {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: var(--spacer-m);
+}

@@ -1,6 +1,9 @@
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { postAdded } from "../../actions/postsSlice";
+import InputLabel from "../Input";
+
+import "./createPostStyles.css";
 
 function CreatePost() {
   const [title, setTitle] = useState("");
@@ -14,30 +17,36 @@ function CreatePost() {
   const dispatch = useDispatch();
 
   return (
-    <section>
-      <h2>Add a New Post</h2>
-      <form>
-        <label htmlFor="postTitle">Post Title:</label>
-        <input
-          type="text"
-          id="postTitle"
-          name="postTitle"
-          value={title}
-          onChange={(e) => onTitleChanged(e)}
-        />
-        <label htmlFor="postContent">Content:</label>
-        <textarea
-          id="postContent"
-          name="postContent"
-          value={content}
-          onChange={(e) => onContentChanged(e)}
-        />
-        <button
-          type="button"
-          onClick={() => dispatch(postAdded(title, content))}
-        >
-          Save Post
-        </button>
+    <section className="createPostContainer">
+      <h2>Hey, what's on your mind?</h2>
+      <form className="postForm">
+        <InputLabel label="Title" htmlFor="postTitle">
+          <input
+            type="text"
+            id="postTitle"
+            name="postTitle"
+            value={title}
+            onChange={(e) => onTitleChanged(e)}
+          />
+        </InputLabel>
+
+        <InputLabel label="Content" htmlFor="postcontent">
+          <textarea
+            id="postContent"
+            name="postContent"
+            value={content}
+            onChange={(e) => onContentChanged(e)}
+          />
+        </InputLabel>
+
+        <div className="createPostActions">
+          <button
+            type="button"
+            onClick={() => dispatch(postAdded(title, content))}
+          >
+            Create
+          </button>
+        </div>
       </form>
     </section>
   );

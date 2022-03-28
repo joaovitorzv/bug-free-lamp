@@ -1,0 +1,67 @@
+:root {
+  --font-size-xs: 12px;
+  --font-size-s: 14px;
+  --font-size-m: 16px;
+  --font-size-l: 18px;
+
+  --spacer-xs: 4px;
+  --spacer-s: 8px;
+  --spacer-m: 14px;
+  --spacer-l: 18px;
+  --spacer-xl: 28px;
+
+  --main-font-family: "Poppins", sans-serif;
+
+  --color-blue: #4cb7d5;
+  --color-purple: #8183f8;
+  --color-danger: #d8312b;
+
+  --radius: 5px;
+
+  --breakpoint-sm: 600px;
+}
+
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: var(--main-font-family);
+}
+
+button {
+  border: none;
+  background-color: black;
+  color: white;
+  font-size: var(--font-size-xs);
+  font-weight: bold;
+  text-transform: uppercase;
+  padding: var(--spacer-s) var(--spacer-m);
+
+  cursor: pointer;
+}
+
+input {
+  border: none;
+  font-size: var(--font-size-m);
+  padding: var(--spacer-xs);
+  border: 2px solid var(--color-purple);
+}
+
+textarea {
+  border: none;
+  font-size: var(--font-size-m);
+  padding: var(--spacer-xs);
+  border: 2px solid var(--color-purple);
+}
+
+a {
+  text-decoration: none;
+  color: black;
+}
+
+a:hover {
+  text-decoration: underline;
+}

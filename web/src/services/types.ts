@@ -1,4 +1,4 @@
-interface Post {
+export interface PostType {
   id: number;
   username: string;
   created_datetime: string;
@@ -10,5 +10,5 @@ export interface Posts {
   count: number;
   next: string;
   previous: string;
-  results: Post[];
+  results: PostType[];
 }

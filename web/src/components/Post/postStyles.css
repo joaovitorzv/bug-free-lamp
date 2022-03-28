@@ -1,0 +1,47 @@
+.postContainer {
+  margin-bottom: var(--spacer-l);
+  border: 1px solid black;
+}
+
+@media only screen and (max-width: 600px) {
+  .postContainer {
+    border-left: none;
+    border-right: none;
+  }
+}
+
+.postContainer header {
+  display: flex;
+  justify-content: space-between;
+  padding: var(--spacer-m) var(--spacer-xl);
+
+  background-color: black;
+  color: white;
+}
+
+.postContainer header h2 {
+  font-size: var(--font-size-l);
+}
+
+.editButton:hover {
+  color: var(--color-purple);
+}
+
+.deleteButton:hover {
+  color: var(--color-danger);
+}
+
+.postBody {
+  padding: var(--spacer-m) var(--spacer-xl);
+}
+
+.postInfo {
+  display: flex;
+  justify-content: space-between;
+  padding-bottom: var(--spacer-s);
+}
+
+.postInfo {
+  color: var(--color-purple);
+  font-size: var(--font-size-s);
+}
