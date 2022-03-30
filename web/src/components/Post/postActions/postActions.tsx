@@ -11,7 +11,8 @@ import { PostType } from "../../../types/posts";
 import "./postActions.css";
 
 function PostActions({ postData }: { postData: PostType }) {
-  const [edit, setEdit] = useState(false);
+  const [deletePostDialog, setDeletePostDialog] = useState(false);
+  const [editPostDialog, setEditPostDialog] = useState(false);
 
   const [title, setEditTile] = useState(postData.title);
   const [content, setEditContent] = useState(postData.content);
@@ -29,16 +30,9 @@ function PostActions({ postData }: { postData: PostType }) {
       });
     }
 
-    if (!edit) {
-      return setEdit(true);
-    } else {
-      dispatch(editPost({ title, content, id }));
-      setEdit(false);
-    }
+    dispatch(editPost({ title, content, id }));
+    setEditPostDialog(false);
   }
-
-  const [deletePostDialog, setDeletePostDialog] = useState(false);
-  const [editPostDialog, setEditPostDialog] = useState(false);
 
   return (
     <div className="postActions">
