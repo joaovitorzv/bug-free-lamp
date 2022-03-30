@@ -24,10 +24,12 @@ function CreatePost() {
       });
     }
 
-    // TODO: Empty fields and place a loading/error status of dispatch request
     dispatch(
       createPost({ content, title, username: session.username as string })
     );
+    setTitle("");
+    setContent("");
+    setFormError({ error: false, message: null });
   }
 
   return (
