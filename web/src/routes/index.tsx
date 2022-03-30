@@ -3,6 +3,7 @@ import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 import { selectSession } from "../actions/sessionSlice";
 import Layout from "../components/Layout";
 import Network from "../pages/Network";
+import NotFound from "../pages/NotFound";
 import Signup from "../pages/Signup";
 
 type EnsureType = {
@@ -49,14 +50,7 @@ function AppRoutes() {
               </EnsureAuth>
             }
           />
-          <Route
-            path="*"
-            element={
-              <div>
-                <p>404, page not found</p>
-              </div>
-            }
-          />
+          <Route path="*" element={<NotFound />} />
         </Route>
       </Routes>
     </BrowserRouter>
