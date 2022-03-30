@@ -1,6 +1,5 @@
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import Loading from "react-loading";
 import { selectPosts, fetchPosts } from "../../actions/feedSlice";
 import { CreatePost, Post } from "../../components/Post";
 import { RootState } from "../../redux/store";
@@ -31,14 +30,14 @@ function Network() {
     <div className="networkContainer">
       <CreatePost />
       {postStatus === "loading" ? (
-        <div className="feedLoading">
-          <Loading type="bubbles" height={50} width={50} color="#8183f8" />
-        </div>
+        <div className="feedLoading">Retrieving posts...</div>
       ) : null}
 
-      {posts.map((post) => (
-        <Post key={post.id} postData={post} />
-      ))}
+      <div className="feed">
+        {posts.map((post) => (
+          <Post key={post.id} postData={post} />
+        ))}
+      </div>
 
       <button onClick={handleNextPage}>load more</button>
     </div>
