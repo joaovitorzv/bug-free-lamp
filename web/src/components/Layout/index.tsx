@@ -3,7 +3,7 @@ import Header from "../Header";
 
 function Layout() {
   return (
-    <div>
+    <div style={{ height: "100vh" }}>
       <Header />
       <div>
         <Outlet />

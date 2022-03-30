@@ -23,6 +23,8 @@
   --radius: 5px;
 
   --breakpoint-sm: 600px;
+
+  --header-height: 100px;
 }
 
 * {
@@ -56,6 +58,7 @@ input {
   font-size: var(--font-size-m);
   padding: var(--spacer-s);
   border: 2px solid var(--color-purple);
+  border-radius: var(--radius);
 }
 
 textarea {
@@ -64,6 +67,7 @@ textarea {
   padding: var(--spacer-s);
   border: 2px solid var(--color-purple);
   font-family: var(--main-font-family);
+  border-radius: var(--radius);
 }
 
 a {
@@ -89,4 +93,17 @@ a:hover {
 
 .primaryButton:hover {
   background-color: var(--color-blue-darker);
+}
+
+.disabledButton {
+  background-color: var(--color-gray);
+}
+
+.disabledButton:hover {
+  background-color: var(--color-gray);
+}
+
+.errorMessage {
+  font-size: var(--font-size-xs);
+  color: var(--color-danger);
 }

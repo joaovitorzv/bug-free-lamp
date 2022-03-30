@@ -1,8 +1,9 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { selectSession } from "../../actions/sessionSlice";
-import { createPost } from "../../actions/feedSlice";
-import InputLabel from "../Input";
+import { selectSession } from "../../../actions/sessionSlice";
+import { createPost } from "../../../actions/feedSlice";
+import InputLabel from "../../Input";
+import useFormError from "../../../hooks/useFormError";
 
 import "./createPostStyles.css";
 
@@ -12,14 +13,16 @@ function CreatePost() {
 
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
-
-  const onTitleChanged = (e: React.ChangeEvent<HTMLInputElement>) =>
-    setTitle(e.target.value);
-  const onContentChanged = (e: React.ChangeEvent<HTMLTextAreaElement>) =>
-    setContent(e.target.value);
+  const [formError, setFormError] = useFormError();
 
   function handleCreatePost(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
+    if (title.length === 0 || content.length === 0) {
+      return setFormError({
+        error: true,
+        message: "You can't create posts with empty fields",
+      });
+    }
 
     // TODO: Empty fields and place a loading/error status of dispatch request
     dispatch(
@@ -38,7 +41,7 @@ function CreatePost() {
             name="postTitle"
             placeholder="The best title for your post"
             value={title}
-            onChange={(e) => onTitleChanged(e)}
+            onChange={(e) => setTitle(e.target.value)}
           />
         </InputLabel>
 
@@ -48,12 +51,19 @@ function CreatePost() {
             name="postContent"
             placeholder="Write some interesting stuff..."
             value={content}
-            onChange={(e) => onContentChanged(e)}
+            onChange={(e) => setContent(e.target.value)}
           />
         </InputLabel>
-
+        {formError.error && <p className="errorMessage">{formError.message}</p>}
         <div className="createPostActions">
-          <button type="submit">Create</button>
+          <button
+            type="submit"
+            className={
+              title.length === 0 && content.length === 0 ? "disabledButton" : ""
+            }
+          >
+            Create
+          </button>
         </div>
       </form>
     </section>

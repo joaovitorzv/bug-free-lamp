@@ -1,4 +1,4 @@
-import CreatePost from "./createPost";
-import Post from "./post";
+import CreatePost from "./createPost/createPost";
+import Post from "./post/post";
 
 export { Post, CreatePost };

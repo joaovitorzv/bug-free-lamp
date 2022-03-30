@@ -23,28 +23,6 @@
   font-size: var(--font-size-l);
 }
 
-.postActions button:hover {
-  background-color: transparent;
-}
-
-.inputGroup {
-  display: flex;
-  flex-direction: column;
-  margin-bottom: var(--spacer-l);
-}
-
-.inputGroup input:not(:first-child) {
-  margin-top: var(--spacer-m);
-}
-
-.editButton:hover {
-  color: var(--color-purple);
-}
-
-.deleteButton:hover {
-  color: var(--color-danger);
-}
-
 .postBody {
   padding: var(--spacer-m) var(--spacer-xl);
 }
