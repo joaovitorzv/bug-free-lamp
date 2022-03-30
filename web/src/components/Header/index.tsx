@@ -1,7 +1,9 @@
+import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { VscSignOut as SignoutIcon } from "react-icons/vsc";
 
+import * as Modal from "../Modal";
 import { selectSession, signout } from "../../actions/sessionSlice";
 import { dropSession } from "../../auth/session";
 import logo from "../../logo.png";
@@ -11,6 +13,7 @@ import "./styles.css";
 function Header() {
   const dispatch = useDispatch();
 
+  const [signoutPostDialog, setSignoutPostDialog] = useState(false);
   const session = useSelector(selectSession);
 
   return (
@@ -28,17 +31,31 @@ function Header() {
       </div>
       <nav className="headerNav">
         {session.username && (
-          <button
-            onClick={() => {
-              dispatch(signout());
-              dropSession();
-            }}
-          >
+          <button onClick={() => setSignoutPostDialog(true)}>
             <SignoutIcon size={18} />
             <span>@{session.username} signout</span>
           </button>
         )}
       </nav>
+      <Modal.Modal
+        header="Sign out"
+        description="You will be signed out of Codeleap Network"
+        isOpen={signoutPostDialog}
+        onDismiss={setSignoutPostDialog}
+      >
+        <Modal.Actions>
+          <button onClick={() => setSignoutPostDialog(false)}>Cancel</button>
+          <button
+            onClick={() => {
+              dispatch(signout());
+              dropSession();
+            }}
+            className="warnButton"
+          >
+            Sign out
+          </button>
+        </Modal.Actions>
+      </Modal.Modal>
     </header>
   );
 }
