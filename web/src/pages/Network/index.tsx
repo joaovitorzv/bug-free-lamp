@@ -1,51 +1,46 @@
-import { useState, useMemo, useEffect } from "react";
-import { useSelector } from "react-redux";
-import { selectPosts } from "../../actions/postsSlice";
+import { useState, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import Loading from "react-loading";
+import { selectPosts, fetchPosts } from "../../actions/feedSlice";
 import { CreatePost, Post } from "../../components/Post";
-import { useGetPostsQuery, useLazyGetPostsQuery } from "../../services/posts";
-import { PostType } from "../../services/types";
+import { RootState } from "../../redux/store";
 import "./styles.css";
 
-const PAGE_LIMIT = 3;
+const POSTS_PER_PAGE = 10;
 
 function Network() {
   const [offset, setOffset] = useState(0);
-  const currPage = useGetPostsQuery(offset);
-  const [] = useLazyGetPostsQuery();
 
-  const [posts, setPosts] = useState<PostType[]>([]);
+  const dispatch = useDispatch();
+  const postStatus = useSelector((state: RootState) => state.feed.status);
 
   useEffect(() => {
-    if (currPage.data?.results) {
-      setPosts((prev) => [...prev, ...currPage.data!.results]);
+    if (postStatus === "idle") {
+      dispatch(fetchPosts(offset));
     }
-  }, [currPage.data]);
+  }, [postStatus, dispatch, offset]);
 
-  if (currPage.isLoading) {
-    return <p>loading posts...</p>;
+  function handleNextPage() {
+    dispatch(fetchPosts(offset + POSTS_PER_PAGE));
+    setOffset((prev) => prev + POSTS_PER_PAGE);
   }
 
-  if (currPage.isError) {
-    return <p>something bad happened.</p>;
-  }
+  const posts = useSelector(selectPosts);
 
   return (
     <div className="networkContainer">
       <CreatePost />
-      {currPage.data?.results.map((post) => (
-        <Post
-          key={post.id}
-          id={post.id}
-          content={post.content}
-          title={post.title}
-          created_datetime={post.created_datetime}
-          username={post.username}
-        />
+      {postStatus === "loading" ? (
+        <div className="feedLoading">
+          <Loading type="bubbles" height={50} width={50} color="#8183f8" />
+        </div>
+      ) : null}
+
+      {posts.map((post) => (
+        <Post key={post.id} postData={post} />
       ))}
 
-      <button onClick={() => setOffset((prev) => prev + PAGE_LIMIT)}>
-        load more
-      </button>
+      <button onClick={handleNextPage}>load more</button>
     </div>
   );
 }

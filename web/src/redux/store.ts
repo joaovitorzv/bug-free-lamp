@@ -1,17 +1,12 @@
 import { configureStore } from "@reduxjs/toolkit";
-import { setupListeners } from "@reduxjs/toolkit/dist/query";
-import postsReducer from "../actions/postsSlice";
+import postsReducer from "../actions/feedSlice";
 import sessionReducer from "../actions/sessionSlice";
-import { postsApi } from "../services/posts";
 
 const store = configureStore({
   reducer: {
-    posts: postsReducer,
+    feed: postsReducer,
     session: sessionReducer,
-    [postsApi.reducerPath]: postsApi.reducer,
   },
-  middleware: (getDefaultMiddleware) =>
-    getDefaultMiddleware().concat(postsApi.middleware),
 });
 
 export type RootState = ReturnType<typeof store.getState>;

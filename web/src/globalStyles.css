@@ -15,6 +15,7 @@
   --color-blue: #4cb7d5;
   --color-purple: #8183f8;
   --color-danger: #d8312b;
+  --color-gray: #cacaca;
 
   --radius: 5px;
 
@@ -46,15 +47,16 @@ button {
 input {
   border: none;
   font-size: var(--font-size-m);
-  padding: var(--spacer-xs);
+  padding: var(--spacer-s);
   border: 2px solid var(--color-purple);
 }
 
 textarea {
   border: none;
   font-size: var(--font-size-m);
-  padding: var(--spacer-xs);
+  padding: var(--spacer-s);
   border: 2px solid var(--color-purple);
+  font-family: var(--main-font-family);
 }
 
 a {

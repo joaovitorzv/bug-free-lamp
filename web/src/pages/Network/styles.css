@@ -2,3 +2,8 @@
   max-width: 998px;
   margin: 0 auto;
 }
+
+.feedLoading {
+  display: flex;
+  justify-content: center;
+}
