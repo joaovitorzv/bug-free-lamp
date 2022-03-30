@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { motion } from "framer-motion";
 import { selectPosts, fetchPosts } from "../../actions/feedSlice";
 import { CreatePost, Post } from "../../components/Post";
 import { RootState } from "../../redux/store";
@@ -33,11 +34,14 @@ function Network() {
         <div className="feedLoading">Retrieving posts...</div>
       ) : null}
 
-      <div className="feed">
+      <motion.div
+        animate={{ y: [-10, 0], opacity: [0, 1] }}
+        transition={{ duration: 0.8 }}
+      >
         {posts.map((post) => (
           <Post key={post.id} postData={post} />
         ))}
-      </div>
+      </motion.div>
 
       <button onClick={handleNextPage}>load more</button>
     </div>

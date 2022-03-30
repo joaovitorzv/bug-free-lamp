@@ -9,6 +9,7 @@ import {
 import { deletePost, editPost } from "../../actions/feedSlice";
 import { PostType } from "../../types/types";
 
+import * as Modal from "../Modal";
 import "./postStyles.css";
 
 interface PostProps {
@@ -23,7 +24,9 @@ function Post({ postData }: PostProps) {
 
   const dispatch = useDispatch();
 
-  function handleEditPost(id: number) {
+  function handleEditPost(e: React.FormEvent<HTMLFormElement>, id: number) {
+    e.preventDefault();
+
     if (!edit) {
       return setEdit(true);
     } else {
@@ -31,6 +34,9 @@ function Post({ postData }: PostProps) {
       setEdit(false);
     }
   }
+
+  const [deletePostDialog, setDeletePostDialog] = useState(false);
+  const [editPostDialog, setEditPostDialog] = useState(false);
 
   return (
     <section className="postContainer">
@@ -40,16 +46,58 @@ function Post({ postData }: PostProps) {
         <div className="postActions">
           <button
             className="editButton"
-            onClick={() => handleEditPost(postData.id)}
+            onClick={() => setEditPostDialog(true)}
           >
-            {edit ? "save" : <EditIcon size={18} />}
+            <EditIcon size={18} />
           </button>
+          <Modal.Modal
+            header="Editing Post"
+            description="Save to see your changes take effect"
+            isOpen={editPostDialog}
+            onDismiss={() => setEditPostDialog(false)}
+          >
+            <form onSubmit={(e) => handleEditPost(e, postData.id)}>
+              <div className="inputGroup">
+                <input
+                  value={title}
+                  onChange={(e) => setEditTile(e.target.value)}
+                />
+                <input
+                  value={content}
+                  onChange={(e) => setEditContent(e.target.value)}
+                />
+              </div>
+              <Modal.Actions>
+                <button onClick={() => setEditPostDialog(false)}>Cancel</button>
+                <button type="submit" className="primaryButton">
+                  Save
+                </button>
+              </Modal.Actions>
+            </form>
+          </Modal.Modal>
+
           <button
             className="deleteButton"
-            onClick={() => dispatch(deletePost(postData.id))}
+            onClick={() => setDeletePostDialog(true)}
           >
             <DeleteIcon size={18} />
           </button>
+          <Modal.Modal
+            header="Are you sure?"
+            description={`You're about to delete your "${postData.title}" post, this action can't be reverted`}
+            isOpen={deletePostDialog}
+            onDismiss={setDeletePostDialog}
+          >
+            <Modal.Actions>
+              <button onClick={() => setDeletePostDialog(false)}>Cancel</button>
+              <button
+                onClick={() => dispatch(deletePost(postData.id))}
+                className="warnButton"
+              >
+                Delete
+              </button>
+            </Modal.Actions>
+          </Modal.Modal>
         </div>
       </header>
       <div className="postBody">
@@ -61,14 +109,6 @@ function Post({ postData }: PostProps) {
         </div>
         <p>{postData.content}</p>
       </div>
-
-      <form style={{ display: edit ? "block" : "none" }}>
-        <input value={title} onChange={(e) => setEditTile(e.target.value)} />
-        <input
-          value={content}
-          onChange={(e) => setEditContent(e.target.value)}
-        />
-      </form>
     </section>
   );
 }

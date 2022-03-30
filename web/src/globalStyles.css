@@ -13,8 +13,11 @@
   --main-font-family: "Poppins", sans-serif;
 
   --color-blue: #4cb7d5;
+  --color-blue-darker: #3a9ab4;
   --color-purple: #8183f8;
-  --color-danger: #d8312b;
+
+  --color-danger: #cc2923;
+  --color-danger-darker: rgb(165, 31, 26);
   --color-gray: #cacaca;
 
   --radius: 5px;
@@ -44,6 +47,10 @@ button {
   cursor: pointer;
 }
 
+button:hover {
+  background-color: var(--color-purple);
+}
+
 input {
   border: none;
   font-size: var(--font-size-m);
@@ -66,4 +73,20 @@ a {
 
 a:hover {
   text-decoration: underline;
+}
+
+.warnButton {
+  background-color: var(--color-danger);
+}
+
+.warnButton:hover {
+  background-color: var(--color-danger-darker);
+}
+
+.primaryButton {
+  background-color: var(--color-blue);
+}
+
+.primaryButton:hover {
+  background-color: var(--color-blue-darker);
 }
