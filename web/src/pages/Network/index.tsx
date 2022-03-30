@@ -13,6 +13,9 @@ function Network() {
 
   const dispatch = useDispatch();
   const postStatus = useSelector((state: RootState) => state.feed.status);
+  const fetchingPostsError = useSelector(
+    (state: RootState) => state.feed.error
+  );
 
   useEffect(() => {
     if (postStatus === "idle") {
@@ -30,9 +33,16 @@ function Network() {
   return (
     <div className="networkContainer">
       <CreatePost />
-      {postStatus === "loading" ? (
+      {postStatus === "loading" && (
         <div className="feedLoading">Retrieving posts...</div>
-      ) : null}
+      )}
+      {postStatus === "failed" && (
+        <div style={{ textAlign: "center" }}>
+          <p className="errorMessage">
+            Oops, something failed while fetching posts...
+          </p>
+        </div>
+      )}
 
       <motion.div
         animate={{ y: [-10, 0], opacity: [0, 1] }}

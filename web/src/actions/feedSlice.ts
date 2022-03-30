@@ -86,7 +86,7 @@ export const feedSlice = createSlice({
       })
       .addCase(fetchPosts.rejected, (state, action) => {
         state.status = "failed";
-        state.error = "something failed on the extra reducers";
+        state.error = "something failed while fecthing the posts.";
       })
       .addCase(fetchPosts.fulfilled, (state, action) => {
         state.status = "ok";
