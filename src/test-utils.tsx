@@ -1,9 +1,9 @@
-import { ReactElement, FC } from "react";
+import { ReactElement, ReactNode } from "react";
 import { render, RenderOptions } from "@testing-library/react";
 import store from "./redux/store";
 import { Provider } from "react-redux";
 
-const AllTheProviders: FC = ({ children }) => {
+const AllTheProviders = (children: ReactNode) => {
   return <Provider store={store}>{children}</Provider>;
 };
 
