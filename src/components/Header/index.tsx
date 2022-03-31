@@ -16,6 +16,12 @@ function Header() {
   const [signoutPostDialog, setSignoutPostDialog] = useState(false);
   const session = useSelector(selectSession);
 
+  function handleSignout() {
+    setSignoutPostDialog(false);
+    dispatch(signout());
+    dropSession();
+  }
+
   return (
     <header className="container">
       <div className="brand">
@@ -45,13 +51,7 @@ function Header() {
       >
         <Modal.Actions>
           <button onClick={() => setSignoutPostDialog(false)}>Cancel</button>
-          <button
-            onClick={() => {
-              dispatch(signout());
-              dropSession();
-            }}
-            className="warnButton"
-          >
+          <button onClick={handleSignout} className="warnButton">
             Sign out
           </button>
         </Modal.Actions>
