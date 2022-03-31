@@ -3,7 +3,7 @@ import { MemoryRouter } from "react-router-dom";
 
 import NotFound from "./index";
 
-test("landing on a bad page", () => {
+it("show not found error message", () => {
   render(
     <MemoryRouter initialEntries={["/badlink"]}>
       <NotFound />
