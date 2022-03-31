@@ -33,7 +33,7 @@ function Header() {
         {session.username && (
           <button onClick={() => setSignoutPostDialog(true)}>
             <SignoutIcon size={18} />
-            <span>@{session.username} signout</span>
+            <span>@{session.username} Sign out</span>
           </button>
         )}
       </nav>

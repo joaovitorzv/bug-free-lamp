@@ -41,7 +41,7 @@ export const createPost = createAsyncThunk(
       body: JSON.stringify(createPostBody),
     });
 
-    return response.json();
+    return await response.json();
   }
 );
 
@@ -111,7 +111,5 @@ export const feedSlice = createSlice({
     });
   },
 });
-
-export const selectPosts = (state: RootState) => state.feed.posts;
 
 export default feedSlice.reducer;

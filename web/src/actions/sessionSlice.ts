@@ -1,15 +1,10 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { retrieveSession } from "../auth/session";
 import { RootState } from "../redux/store";
-
-interface SessionState {
-  username: string | null;
-}
+import { SessionState } from "../types/session";
 
 const username = retrieveSession();
-const initialState: SessionState = {
-  username,
-};
+const initialState: SessionState = { username };
 
 export const sessionSlice = createSlice({
   name: "session",
