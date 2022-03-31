@@ -70,6 +70,7 @@ textarea {
   border: 2px solid var(--color-purple);
   font-family: var(--main-font-family);
   border-radius: var(--radius);
+  resize: vertical;
 }
 
 a {
