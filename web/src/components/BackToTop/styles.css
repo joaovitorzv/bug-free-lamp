@@ -1,0 +1,14 @@
+.backToTop {
+  position: fixed;
+  right: var(--spacer-xl);
+  bottom: var(--spacer-xl);
+  z-index: 5;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.backToTop svg {
+  margin-left: var(--spacer-xs);
+}

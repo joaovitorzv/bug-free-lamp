@@ -6,11 +6,13 @@ import { selectSession } from "../../actions/sessionSlice";
 import { CreatePost, Post } from "../../components/Post";
 import { RootState, useAppDispatch } from "../../redux/store";
 import "./styles.css";
+import BackToTop from "../../components/BackToTop";
 
 const POSTS_PER_PAGE = 10;
 
 function Network() {
   const [offset, setOffset] = useState(0);
+  const [backToTop, setBackToTop] = useState(false);
 
   const dispatch = useAppDispatch();
   const session = useSelector(selectSession);
@@ -31,11 +33,6 @@ function Network() {
 
   useEffect(() => {
     function handleInfiniteScroll() {
-      console.log(lastButOnePostRef.current);
-      console.log(
-        lastButOnePostRef.current?.getBoundingClientRect().y,
-        window.innerHeight
-      );
       if (
         lastButOnePostRef.current &&
         lastButOnePostRef.current.getBoundingClientRect().y < window.innerHeight
@@ -46,11 +43,27 @@ function Network() {
     }
 
     document.addEventListener("scroll", handleInfiniteScroll);
-
     return () => {
       document.removeEventListener("scroll", handleInfiniteScroll);
     };
   }, [handleNextPage]);
+
+  useEffect(() => {
+    function handleBackToTop() {
+      console.log(window.scrollY, window.innerHeight);
+
+      if (window.scrollY > window.innerHeight) {
+        setBackToTop(true);
+      } else {
+        setBackToTop(false);
+      }
+    }
+
+    document.addEventListener("scroll", handleBackToTop);
+    return () => {
+      document.removeEventListener("scroll", handleBackToTop);
+    };
+  }, []);
 
   return (
     <div className="networkContainer">
@@ -76,7 +89,7 @@ function Network() {
           <p className="errorMessage">{feed.error}</p>
         </div>
       )}
-      <button onClick={handleNextPage}>load</button>
+      <BackToTop isInvisible={backToTop} />
     </div>
   );
 }
