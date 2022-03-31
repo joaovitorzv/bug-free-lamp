@@ -5,10 +5,9 @@ import { fetchPosts } from "../../actions/feedSlice";
 import { selectSession } from "../../actions/sessionSlice";
 import { CreatePost, Post } from "../../components/Post";
 import { RootState, useAppDispatch } from "../../redux/store";
-import "./styles.css";
+import { POSTS_PER_PAGE } from "../../types/posts.d";
 import BackToTop from "../../components/BackToTop";
-
-const POSTS_PER_PAGE = 10;
+import "./styles.css";
 
 function Network() {
   const [offset, setOffset] = useState(0);
@@ -51,11 +50,10 @@ function Network() {
   const [lastScrollYCord, setLastScrollYCord] = useState(0);
 
   useEffect(() => {
+    const scrolledToViewHeight = window.scrollY > window.innerHeight;
+
     function handleBackToTop() {
-      if (
-        window.scrollY > window.innerHeight &&
-        lastScrollYCord > window.scrollY
-      ) {
+      if (scrolledToViewHeight && lastScrollYCord > window.scrollY) {
         setBackToTop(true);
       } else {
         setBackToTop(false);
