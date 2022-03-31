@@ -1,6 +1,5 @@
 import { Dialog } from "@reach/dialog";
 import "@reach/dialog/styles.css";
-import { PropsWithChildren } from "react";
 import "./styles.css";
 
 interface ModalProps {
@@ -31,10 +30,12 @@ export function Modal({
       className="modal"
       isOpen={isOpen}
       onDismiss={() => onDismiss(false)}
+      aria-labelledby="dialog-label"
+      aria-describedby="dialog-desc"
     >
       <header className="modalHeader">
-        <h3>{header}</h3>
-        <p>{description}</p>
+        <h3 id="dilog-label">{header}</h3>
+        <p id="dialog-desc">{description}</p>
       </header>
       <div className="modalBody">{children}</div>
     </Dialog>
