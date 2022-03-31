@@ -5,7 +5,7 @@ import NotFound from "./index";
 
 it("show not found error message", () => {
   render(
-    <MemoryRouter initialEntries={["/badlink"]}>
+    <MemoryRouter initialEntries={["/invalid route"]}>
       <NotFound />
     </MemoryRouter>
   );
