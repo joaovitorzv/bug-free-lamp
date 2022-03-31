@@ -65,10 +65,10 @@ function CreatePost() {
           <button
             type="submit"
             className={
-              title.length === 0 && content.length === 0 ? "disabledButton" : ""
+              title.length === 0 || content.length === 0 ? "disabledButton" : ""
             }
           >
-            {isCreating ? "creating" : "create"}
+            {isCreating ? "creating..." : "create"}
           </button>
         </div>
       </form>
