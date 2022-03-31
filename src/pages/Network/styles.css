@@ -7,3 +7,10 @@
   display: flex;
   justify-content: center;
 }
+
+.feedEnd {
+  padding: var(--spacer-xl);
+  font-size: var(--font-size-l);
+  display: flex;
+  justify-content: center;
+}

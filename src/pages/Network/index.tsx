@@ -27,11 +27,21 @@ function Network() {
     }
   }, [feed, handleNextPage]);
 
-  const lastButOnePostRef = useRef<HTMLElement | null>(null);
+  const [reachedEnd, setReachedEnd] = useState(false);
+  console.log(reachedEnd);
 
+  useEffect(() => {
+    if (offset >= feed.posts_count) {
+      return setReachedEnd(true);
+    }
+    setReachedEnd(false);
+  }, [offset, feed.posts_count]);
+
+  const lastButOnePostRef = useRef<HTMLElement | null>(null);
   useEffect(() => {
     function handleInfiniteScroll() {
       if (
+        !reachedEnd &&
         lastButOnePostRef.current &&
         lastButOnePostRef.current.getBoundingClientRect().y < window.innerHeight
       ) {
@@ -44,11 +54,10 @@ function Network() {
     return () => {
       document.removeEventListener("scroll", handleInfiniteScroll);
     };
-  }, [handleNextPage]);
+  }, [handleNextPage, reachedEnd]);
 
   const [backToTop, setBackToTop] = useState(false);
   const [lastScrollYCord, setLastScrollYCord] = useState(0);
-
   useEffect(() => {
     const scrolledToViewHeight = window.scrollY > window.innerHeight;
 
@@ -93,6 +102,9 @@ function Network() {
         </div>
       )}
       <BackToTop isInvisible={backToTop} />
+      <div className="feedEnd">
+        {reachedEnd && <h4>You've reached the end.</h4>}
+      </div>
     </div>
   );
 }
