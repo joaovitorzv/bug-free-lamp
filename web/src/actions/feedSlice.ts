@@ -7,7 +7,7 @@ interface InitialState {
   error: string | null;
 }
 
-const BASE_URL = "http://dev.codeleap.co.uk";
+const BASE_URL = "https://dev.codeleap.co.uk";
 
 const initialState: InitialState = {
   posts: [],
