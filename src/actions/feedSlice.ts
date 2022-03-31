@@ -103,7 +103,6 @@ export const feedSlice = createSlice({
         (post) => post.id === action.meta.arg.id
       );
 
-      console.log(action.payload);
       state.posts[editPostIdx] = { ...action.payload };
     });
   },
