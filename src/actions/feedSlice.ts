@@ -1,10 +1,11 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import { PostType, POSTS_PER_PAGE } from "../types/posts.d";
+import { Posts, PostType, POSTS_PER_PAGE } from "../types/posts.d";
 
 interface FeedState {
   posts: PostType[];
   status: "idle" | "loading" | "ok" | "failed";
   error: string | null;
+  posts_count: number;
 }
 
 const BASE_URL = "https://dev.codeleap.co.uk";
@@ -13,16 +14,16 @@ const initialState: FeedState = {
   posts: [],
   status: "idle",
   error: null,
+  posts_count: 0,
 };
 
-export const fetchPosts = createAsyncThunk(
+export const fetchPosts = createAsyncThunk<Posts, number>(
   "feed/getPosts",
   async (offset: number) => {
     const response = await fetch(
       `${BASE_URL}/careers/?offset=${offset}&limit=${POSTS_PER_PAGE}/`
     );
-    const data = await response.json();
-    return data.results;
+    return await response.json();
   }
 );
 
@@ -87,7 +88,8 @@ export const feedSlice = createSlice({
       })
       .addCase(fetchPosts.fulfilled, (state, action) => {
         state.status = "ok";
-        state.posts = state.posts.concat(action.payload);
+        state.posts.push(...action.payload.results);
+        state.posts_count = action.payload.count;
       });
     builder.addCase(createPost.fulfilled, (state, action) => {
       state.posts.unshift(action.payload);
