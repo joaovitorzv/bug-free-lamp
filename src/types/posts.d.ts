@@ -12,3 +12,5 @@ export interface Posts {
   previous: string;
   results: PostType[];
 }
+
+export const POSTS_PER_PAGE = 10;

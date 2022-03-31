@@ -1,5 +1,5 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import { PostType } from "../types/posts";
+import { PostType, POSTS_PER_PAGE } from "../types/posts.d";
 
 interface InitialState {
   posts: PostType[];
@@ -18,7 +18,9 @@ const initialState: InitialState = {
 export const fetchPosts = createAsyncThunk(
   "feed/getPosts",
   async (offset: number) => {
-    const response = await fetch(`${BASE_URL}/careers/?offset=${offset}`);
+    const response = await fetch(
+      `${BASE_URL}/careers/?offset=${offset}&limit=${POSTS_PER_PAGE}/`
+    );
     const data = await response.json();
     return data.results;
   }
