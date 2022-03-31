@@ -8,8 +8,8 @@
   margin-bottom: var(--spacer-l);
 }
 
-.inputGroup input:not(:first-child) {
-  margin-top: var(--spacer-m);
+.inputGroup input {
+  margin-bottom: var(--spacer-m);
 }
 
 .editButton:hover {

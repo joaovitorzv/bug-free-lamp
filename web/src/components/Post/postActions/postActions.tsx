@@ -66,7 +66,7 @@ function PostActions({ postData }: { postData: PostType }) {
               value={title}
               onChange={(e) => setEditTitle(e.target.value)}
             />
-            <input
+            <textarea
               value={content}
               onChange={(e) => setEditContent(e.target.value)}
             />
