@@ -26,7 +26,7 @@ function Signup() {
     dispatch(signup({ username }));
   }
   return (
-    <div className="signupContainer">
+    <div className="signupContainer" data-testid="signup">
       <div className="signupCard">
         <h3>Welcome to CodeLeap network!</h3>
         <form onSubmit={handleSignup}>
@@ -37,10 +37,13 @@ function Signup() {
               placeholder="Jhon Doe"
               value={username}
               onChange={(e) => setUsername(e.target.value)}
+              data-testid="username"
             />
           </InputLabel>
           {formError.error && (
-            <p className="errorMessage">{formError.message}</p>
+            <p className="errorMessage" data-testid="error-msg">
+              {formError.message}
+            </p>
           )}
           <div className="signupActions">
             <button
