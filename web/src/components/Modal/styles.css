@@ -34,3 +34,13 @@
 .modalActions button:not(:first-child) {
   margin-left: var(--spacer-m);
 }
+
+[data-reach-dialog-content] {
+  width: 450px;
+}
+
+@media only screen and (max-width: 600px) {
+  [data-reach-dialog-content] {
+    width: 100vw;
+  }
+}
