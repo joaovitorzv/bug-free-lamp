@@ -1,5 +1,7 @@
 import React, { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
+
+import { useAppDispatch } from "../../../redux/store";
 import { selectSession } from "../../../actions/sessionSlice";
 import { createPost } from "../../../actions/feedSlice";
 import InputLabel from "../../Input";
@@ -9,7 +11,7 @@ import "./createPostStyles.css";
 
 function CreatePost() {
   const session = useSelector(selectSession);
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");

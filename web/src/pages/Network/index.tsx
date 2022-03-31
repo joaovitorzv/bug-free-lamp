@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef, useCallback } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { motion } from "framer-motion";
 import { fetchPosts } from "../../actions/feedSlice";
 import { selectSession } from "../../actions/sessionSlice";
@@ -12,15 +12,14 @@ const POSTS_PER_PAGE = 10;
 function Network() {
   const [offset, setOffset] = useState(0);
 
-  const dispatch = useDispatch();
-  const appDisaptch = useAppDispatch();
+  const dispatch = useAppDispatch();
   const session = useSelector(selectSession);
   const feed = useSelector((state: RootState) => state.feed);
 
   const handleNextPage = useCallback(async () => {
-    await appDisaptch(fetchPosts(offset)).unwrap();
+    await dispatch(fetchPosts(offset)).unwrap();
     setOffset((prev) => prev + POSTS_PER_PAGE);
-  }, [offset, appDisaptch]);
+  }, [offset, dispatch]);
 
   useEffect(() => {
     if (feed.status === "idle") {
