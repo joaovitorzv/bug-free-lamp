@@ -1,7 +1,5 @@
 import { forwardRef } from "react";
 import { formatDistanceToNow } from "date-fns";
-import { useSelector } from "react-redux";
-import { selectSession } from "../../../actions/sessionSlice";
 import { PostType } from "../../../types/posts";
 import PostActions from "../postActions/postActions";
 import { SessionState } from "../../../types/session";
