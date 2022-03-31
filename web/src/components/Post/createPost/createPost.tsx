@@ -16,9 +16,9 @@ function CreatePost() {
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
   const [formError, setFormError] = useFormError();
-  const [isCreating, setIsCreating] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
-  function handleCreatePost(e: React.FormEvent<HTMLFormElement>) {
+  async function handleCreatePost(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     if (title.length === 0 || content.length === 0) {
       return setFormError({
@@ -26,14 +26,14 @@ function CreatePost() {
         message: "You can't create posts with empty fields",
       });
     }
-    setIsCreating(true);
-    dispatch(
+    setIsSubmitting(true);
+    await dispatch(
       createPost({ content, title, username: session.username as string })
-    );
+    ).unwrap();
     setTitle("");
     setContent("");
     setFormError({ error: false, message: null });
-    setIsCreating(false);
+    setIsSubmitting(false);
   }
 
   return (
@@ -67,8 +67,9 @@ function CreatePost() {
             className={
               title.length === 0 || content.length === 0 ? "disabledButton" : ""
             }
+            disabled={isSubmitting}
           >
-            {isCreating ? "creating..." : "create"}
+            {isSubmitting ? "creating..." : "create"}
           </button>
         </div>
       </form>
