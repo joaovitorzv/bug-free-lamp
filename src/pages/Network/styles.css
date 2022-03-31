@@ -3,21 +3,6 @@
   margin: 0 auto;
 }
 
-.feed {
-  animation: feedLoad 0.9s ease-in;
-}
-
-@keyframes feedLoad {
-  from {
-    opacity: 0;
-    transform: translateY(-10px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
 .feedLoading {
   display: flex;
   justify-content: center;
