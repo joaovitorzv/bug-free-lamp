@@ -1,6 +1,5 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import { RootState } from "../redux/store";
-import { Posts, PostType } from "../types/posts";
+import { PostType } from "../types/posts";
 
 interface InitialState {
   posts: PostType[];
@@ -19,13 +18,9 @@ const initialState: InitialState = {
 export const fetchPosts = createAsyncThunk(
   "feed/getPosts",
   async (offset: number) => {
-    try {
-      const response = await fetch(`${BASE_URL}/careers/?offset=${offset}`);
-      const data: Promise<Posts> = response.json();
-      return (await data).results;
-    } catch (e) {
-      console.log(e, "we fucked up on the thunk");
-    }
+    const response = await fetch(`${BASE_URL}/careers/?offset=${offset}`);
+    const data = await response.json();
+    return data.results;
   }
 );
 
@@ -90,7 +85,7 @@ export const feedSlice = createSlice({
       })
       .addCase(fetchPosts.fulfilled, (state, action) => {
         state.status = "ok";
-        state.posts = state.posts.concat(action.payload!);
+        state.posts = state.posts.concat(action.payload);
       });
     builder.addCase(createPost.fulfilled, (state, action) => {
       state.posts.unshift(action.payload);
