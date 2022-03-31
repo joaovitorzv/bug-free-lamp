@@ -5,9 +5,9 @@ function Layout() {
   return (
     <div style={{ height: "100vh" }}>
       <Header />
-      <div>
+      <main>
         <Outlet />
-      </div>
+      </main>
     </div>
   );
 }
