@@ -12,7 +12,6 @@ const POSTS_PER_PAGE = 10;
 
 function Network() {
   const [offset, setOffset] = useState(0);
-  const [backToTop, setBackToTop] = useState(false);
 
   const dispatch = useAppDispatch();
   const session = useSelector(selectSession);
@@ -48,22 +47,28 @@ function Network() {
     };
   }, [handleNextPage]);
 
+  const [backToTop, setBackToTop] = useState(false);
+  const [lastScrollYCord, setLastScrollYCord] = useState(0);
+
   useEffect(() => {
     function handleBackToTop() {
-      console.log(window.scrollY, window.innerHeight);
-
-      if (window.scrollY > window.innerHeight) {
+      if (
+        window.scrollY > window.innerHeight &&
+        lastScrollYCord > window.scrollY
+      ) {
         setBackToTop(true);
       } else {
         setBackToTop(false);
       }
+
+      setLastScrollYCord(window.scrollY);
     }
 
     document.addEventListener("scroll", handleBackToTop);
     return () => {
       document.removeEventListener("scroll", handleBackToTop);
     };
-  }, []);
+  }, [lastScrollYCord]);
 
   return (
     <div className="networkContainer">
