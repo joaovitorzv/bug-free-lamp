@@ -48,6 +48,7 @@ function CreatePost() {
             placeholder="The best title for your post"
             value={title}
             onChange={(e) => setTitle(e.target.value)}
+            data-testid="create-input-title"
           />
         </InputLabel>
 
@@ -58,6 +59,7 @@ function CreatePost() {
             placeholder="Write some interesting stuff..."
             value={content}
             onChange={(e) => setContent(e.target.value)}
+            data-testid="create-input-content"
           />
         </InputLabel>
         {formError.error && <p className="errorMessage">{formError.message}</p>}

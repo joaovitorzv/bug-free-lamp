@@ -22,7 +22,6 @@
 
 .postForm textarea {
   margin-bottom: var(--spacer-m);
-  resize: vertical;
 }
 
 .createPostActions {

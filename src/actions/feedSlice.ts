@@ -1,7 +1,7 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { PostType, POSTS_PER_PAGE } from "../types/posts.d";
 
-interface InitialState {
+interface FeedState {
   posts: PostType[];
   status: "idle" | "loading" | "ok" | "failed";
   error: string | null;
@@ -9,7 +9,7 @@ interface InitialState {
 
 const BASE_URL = "https://dev.codeleap.co.uk";
 
-const initialState: InitialState = {
+const initialState: FeedState = {
   posts: [],
   status: "idle",
   error: null,

@@ -17,8 +17,8 @@ function Network() {
   const feed = useSelector((state: RootState) => state.feed);
 
   const handleNextPage = useCallback(async () => {
-    await dispatch(fetchPosts(offset)).unwrap();
     setOffset((prev) => prev + POSTS_PER_PAGE);
+    await dispatch(fetchPosts(offset)).unwrap();
   }, [offset, dispatch]);
 
   useEffect(() => {
@@ -69,7 +69,7 @@ function Network() {
   }, [lastScrollYCord]);
 
   return (
-    <div className="networkContainer">
+    <div className="networkContainer" data-testid="network">
       <CreatePost />
       {feed.status === "loading" && (
         <div className="feedLoading">Retrieving posts...</div>

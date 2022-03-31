@@ -9,6 +9,7 @@ import { deletePost, editPost } from "../../../actions/feedSlice";
 import * as Modal from "../../Modal";
 import { PostType } from "../../../types/posts";
 import "./postActions.css";
+import InputLabel from "../../Input";
 
 function PostActions({ postData }: { postData: PostType }) {
   const dispatch = useAppDispatch();
@@ -23,12 +24,19 @@ function PostActions({ postData }: { postData: PostType }) {
 
   const anyFieldEmpty = title.length === 0 || content.length === 0;
 
-  // re-fill dialog fields with server data if is rerendered
+  // re-fill dialog fields with server data if is re-rendered
   // there is probably a better way to do it, but I can't find
   useEffect(() => {
     setEditTitle(postData.title);
     setEditContent(postData.content);
-  }, [editPostDialog, setEditContent, postData.title, postData.content]);
+    setFormError({ error: false, message: null });
+  }, [
+    editPostDialog,
+    setEditContent,
+    setFormError,
+    postData.title,
+    postData.content,
+  ]);
 
   async function handleEditPost(
     e: React.FormEvent<HTMLFormElement>,
@@ -51,7 +59,11 @@ function PostActions({ postData }: { postData: PostType }) {
 
   return (
     <div className="postActions">
-      <button className="editButton" onClick={() => setEditPostDialog(true)}>
+      <button
+        className="editButton"
+        onClick={() => setEditPostDialog(true)}
+        data-testid="edit-post-btn"
+      >
         <EditIcon size={18} />
       </button>
       <Modal.Modal
@@ -62,14 +74,24 @@ function PostActions({ postData }: { postData: PostType }) {
       >
         <form onSubmit={(e) => handleEditPost(e, postData.id)}>
           <div className="inputGroup">
-            <input
-              value={title}
-              onChange={(e) => setEditTitle(e.target.value)}
-            />
-            <textarea
-              value={content}
-              onChange={(e) => setEditContent(e.target.value)}
-            />
+            <InputLabel label="Title" htmlFor="edit-title">
+              <input
+                value={title}
+                id="edit-title"
+                name="edit-title"
+                onChange={(e) => setEditTitle(e.target.value)}
+                data-testid="edit-title-input"
+              />
+            </InputLabel>
+            <InputLabel label="Content" htmlFor="edit-content">
+              <textarea
+                value={content}
+                id="edit-content"
+                name="edit-content"
+                onChange={(e) => setEditContent(e.target.value)}
+                data-testid="edit-content-input"
+              />
+            </InputLabel>
           </div>
           {formError.error && (
             <p className="errorMessage">{formError.message}</p>
@@ -80,6 +102,7 @@ function PostActions({ postData }: { postData: PostType }) {
               type="submit"
               className={anyFieldEmpty ? "disabledButton" : "primaryButton"}
               disabled={isSubmitting}
+              data-testid="save-edit-btn"
             >
               {isSubmitting ? "saving..." : "save"}
             </button>
@@ -90,6 +113,7 @@ function PostActions({ postData }: { postData: PostType }) {
       <button
         className="deleteButton"
         onClick={() => setDeletePostDialog(true)}
+        data-testid="delete-dialog-btn"
       >
         <DeleteIcon size={18} />
       </button>
@@ -104,6 +128,7 @@ function PostActions({ postData }: { postData: PostType }) {
           <button
             onClick={() => dispatch(deletePost(postData.id))}
             className="warnButton"
+            data-testid="delete-post-btn"
           >
             Delete
           </button>
