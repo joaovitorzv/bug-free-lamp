@@ -3,7 +3,7 @@ import { render, RenderOptions } from "@testing-library/react";
 import store from "./redux/store";
 import { Provider } from "react-redux";
 
-const AllTheProviders = (children: ReactNode) => {
+const AllTheProviders = ({ children }: { children: ReactNode }) => {
   return <Provider store={store}>{children}</Provider>;
 };
 
