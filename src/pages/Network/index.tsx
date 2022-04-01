@@ -102,7 +102,9 @@ function Network() {
       )}
       <BackToTop isInvisible={backToTop} />
       <div className="feedEnd">
-        {reachedEnd && <h4>You've reached the end.</h4>}
+        {reachedEnd && feed.status !== "loading" && (
+          <h4>You've reached the end.</h4>
+        )}
       </div>
     </div>
   );
