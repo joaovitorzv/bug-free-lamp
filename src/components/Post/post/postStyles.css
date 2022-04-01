@@ -25,15 +25,13 @@
 
 .postBody {
   padding: var(--spacer-m) var(--spacer-xl);
+  overflow-wrap: break-word;
 }
 
 .postInfo {
   display: flex;
   justify-content: space-between;
   padding-bottom: var(--spacer-s);
-}
-
-.postInfo {
   color: var(--color-purple);
   font-size: var(--font-size-s);
 }
