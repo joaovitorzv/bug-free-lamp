@@ -25,7 +25,7 @@ function PostActions({ postData }: { postData: PostType }) {
   const anyFieldEmpty = title.length === 0 || content.length === 0;
 
   // re-fill dialog fields with server data if is re-rendered
-  // there is probably a better way to do it, but I can't find
+  // there is probably a better way to do it
   useEffect(() => {
     setEditTitle(postData.title);
     setEditContent(postData.content);
@@ -60,6 +60,7 @@ function PostActions({ postData }: { postData: PostType }) {
   return (
     <div className="postActions">
       <button
+        aria-label="edit post"
         className="editButton"
         onClick={() => setEditPostDialog(true)}
         data-testid="edit-post-btn"
@@ -111,6 +112,7 @@ function PostActions({ postData }: { postData: PostType }) {
       </Modal.Modal>
 
       <button
+        aria-label="delete post"
         className="deleteButton"
         onClick={() => setDeletePostDialog(true)}
         data-testid="delete-dialog-btn"
