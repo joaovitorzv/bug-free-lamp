@@ -1,5 +1,11 @@
 import { useSelector } from "react-redux";
-import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
+import {
+  BrowserRouter,
+  Navigate,
+  Route,
+  RouteProps,
+  Routes,
+} from "react-router-dom";
 import { selectSession } from "../actions/sessionSlice";
 import Layout from "../components/Layout";
 import Network from "../pages/Network";
@@ -8,26 +14,30 @@ import Signup from "../pages/Signup";
 
 type EnsureType = {
   children: JSX.Element;
-  authorized?: boolean;
+  hasSession?: boolean;
+  onlyPrivate?: boolean;
+  onlyPublic?: boolean;
 };
 
-const EnsurePublic = ({ children, authorized }: EnsureType) => {
-  if (authorized) {
+const EnsureProtected = ({
+  hasSession,
+  onlyPrivate,
+  onlyPublic,
+  children,
+}: EnsureType) => {
+  if (hasSession && onlyPublic) {
     return <Navigate to="/network" />;
   }
-  return children;
-};
-
-const EnsureAuth = ({ children, authorized }: EnsureType) => {
-  if (!authorized) {
+  if (!hasSession && onlyPrivate) {
     return <Navigate to="/signup" />;
   }
+
   return children;
 };
 
 function AppRoutes() {
   const session = useSelector(selectSession);
-  const isAuthorized = !!session.username;
+  const hasSession = !!session.username;
 
   return (
     <BrowserRouter>
@@ -37,17 +47,17 @@ function AppRoutes() {
           <Route
             path="/signup"
             element={
-              <EnsurePublic authorized={isAuthorized}>
+              <EnsureProtected hasSession={hasSession} onlyPublic>
                 <Signup />
-              </EnsurePublic>
+              </EnsureProtected>
             }
           />
           <Route
             path="/network"
             element={
-              <EnsureAuth authorized={isAuthorized}>
+              <EnsureProtected hasSession={hasSession} onlyPrivate>
                 <Network />
-              </EnsureAuth>
+              </EnsureProtected>
             }
           />
           <Route path="*" element={<NotFound />} />
