@@ -58,7 +58,7 @@ export const editPost = createAsyncThunk(
       }),
     });
 
-    return response.json();
+    return await response.json();
   }
 );
 
@@ -69,7 +69,7 @@ export const deletePost = createAsyncThunk(
       method: "DELETE",
     });
 
-    return response.ok;
+    return await response.ok;
   }
 );
 
