@@ -40,14 +40,17 @@ const mockPost = {
 };
 
 const mockSession = { username: "happyuser" };
+const baseURL = (path: string) => {
+  return new URL(path, "https://dev.codeleap.co.uk").toString();
+};
 
 const server = setupServer(
-  rest.get("https://dev.codeleap.co.uk/careers/", (req, res, ctx) => {
+  rest.get(baseURL("/careers/"), (req, res, ctx) => {
     return res(ctx.status(200), ctx.json(mockPostsResponse));
   }),
 
   rest.post<Omit<PostType, "id" | "created_datetime">, PathParams, PostType>(
-    "https://dev.codeleap.co.uk/careers/",
+    baseURL("/careers/"),
     (req, res, ctx) => {
       const { title, content, username } = req.body;
 
@@ -64,7 +67,7 @@ const server = setupServer(
     }
   ),
 
-  rest.delete("https://dev.codeleap.co.uk/careers/:postId", (req, res, ctx) => {
+  rest.delete(baseURL("/careers/:postId"), (req, res, ctx) => {
     return res(ctx.status(204));
   }),
 
@@ -72,7 +75,7 @@ const server = setupServer(
     Omit<PostType, "created_datetime" | "id">,
     { postId: string },
     PostType
-  >("https://dev.codeleap.co.uk/careers/:postId", (req, res, ctx) => {
+  >(baseURL("/careers/:postId"), (req, res, ctx) => {
     const { postId } = req.params;
 
     return res(
