@@ -1,11 +1,11 @@
 import { configureStore } from "@reduxjs/toolkit";
 import { useDispatch } from "react-redux";
-import postsReducer from "../actions/feedSlice";
+import feedReducer from "../actions/feedSlice";
 import sessionReducer from "../actions/sessionSlice";
 
 const store = configureStore({
   reducer: {
-    feed: postsReducer,
+    feed: feedReducer,
     session: sessionReducer,
   },
 });
