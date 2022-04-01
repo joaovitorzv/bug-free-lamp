@@ -28,7 +28,6 @@ function Network() {
   }, [feed, handleNextPage]);
 
   const [reachedEnd, setReachedEnd] = useState(false);
-  console.log(reachedEnd);
 
   useEffect(() => {
     if (offset >= feed.posts_count) {
